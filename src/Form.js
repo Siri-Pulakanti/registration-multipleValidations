@@ -13,12 +13,12 @@ function Form() {
 
   useEffect(() => {
     if (
-      name.trim() != "" &&
-      email.trim() != "" &&
-      password.trim() != "" &&
-      confirmPassword.trim() != "" &&
+      name.trim() !== "" &&
+      email.trim() !== "" &&
+      password.trim() !== "" &&
+      confirmPassword.trim() !== "" &&
       termsAccepted &&
-      error == ""
+      error === ""
     ) {
       setEnableSubmit(true);
     } else {
@@ -38,6 +38,7 @@ function Form() {
       setError("");
     }
   }
+
   function handleEmailChange(value) {
     setEmail(value);
     if (!isValidEmail(value)) {
@@ -46,6 +47,7 @@ function Form() {
       setError("");
     }
   }
+
   function handlePwdChange(e) {
     const value = e.target.value;
     setPassword(value);
@@ -62,6 +64,7 @@ function Form() {
       setError("");
     }
   }
+
   function handleConfirmPwd(e) {
     const value = e.target.value;
     setConfirmPassword(value);
@@ -71,16 +74,13 @@ function Form() {
       setError("");
     }
   }
+
   function handleTermsCheckbox(e) {
     setTermsAccepted(e.target.checked);
   }
+
   function handleBtnClick() {
-    const userData = {
-      name: name,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
-    };
+    const userData = { name, email, password, confirmPassword };
     console.log(userData);
     alert("Registered Successfully");
     setName("");
@@ -91,48 +91,78 @@ function Form() {
   }
 
   return (
-    <div>
-      <input
-        type="text"
-        value={name}
-        onChange={handleNameChange}
-        placeholder="Enter full name"
-        required
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => handleEmailChange(e.target.value)}
-        placeholder="Enter email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        placeholder="Enter password"
-        onChange={handlePwdChange}
-        required
-      />
-      <input
-        type="password"
-        value={confirmPassword}
-        placeholder="Confirm password"
-        onChange={handleConfirmPwd}
-        required
-      />
-      <label>
+    <div className="container mt-4">
+      <h2 className="mb-4">Registration Form</h2>
+      <div className="mb-3">
+        <label className="form-label">Full Name</label>
+        <input
+          type="text"
+          className="form-control"
+          value={name}
+          onChange={handleNameChange}
+          placeholder="Enter full name"
+          required
+        />
+      </div>
+
+      <div className="mb-3">
+        <label className="form-label">Email address</label>
+        <input
+          type="email"
+          className="form-control"
+          value={email}
+          onChange={(e) => handleEmailChange(e.target.value)}
+          placeholder="Enter email"
+          required
+        />
+      </div>
+
+      <div className="mb-3">
+        <label className="form-label">Password</label>
+        <input
+          type="password"
+          className="form-control"
+          value={password}
+          placeholder="Enter password"
+          onChange={handlePwdChange}
+          required
+        />
+      </div>
+
+      <div className="mb-3">
+        <label className="form-label">Confirm Password</label>
+        <input
+          type="password"
+          className="form-control"
+          value={confirmPassword}
+          placeholder="Confirm password"
+          onChange={handleConfirmPwd}
+          required
+        />
+      </div>
+
+      <div className="form-check mb-3">
         <input
           type="checkbox"
+          className="form-check-input"
           checked={termsAccepted}
           onChange={handleTermsCheckbox}
+          id="termsCheckbox"
         />
-        I agree to the Terms and Conditions
-      </label>
-      <button onClick={handleBtnClick} disabled={!enableSubmit}>
+        <label className="form-check-label" htmlFor="termsCheckbox">
+          I agree to the Terms and Conditions
+        </label>
+      </div>
+
+      <button
+        className="btn btn-primary"
+        onClick={handleBtnClick}
+        disabled={!enableSubmit}
+      >
         Register
       </button>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="text-danger mt-3">{error}</p>}
     </div>
   );
 }
